@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pokemon API</string>
+    <string name="name_or_id_number">Name or Id number</string>
 </resources>
