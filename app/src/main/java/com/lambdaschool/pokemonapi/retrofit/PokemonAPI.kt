@@ -1,6 +1,5 @@
 package com.lambdaschool.pokemonapi.retrofit
 
-import android.text.Editable
 import com.google.gson.Gson
 import com.lambdaschool.pokemonapi.model.Pokemon
 import okhttp3.OkHttpClient
@@ -10,12 +9,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface PokemonAPI {
 
-    @GET("pokemon")
+    @GET("pokemon/{name}")
     fun getPokemonByName(@Path("name") pokemonName: String): Call<Pokemon>
 
     @GET("pokemon/{id}")
