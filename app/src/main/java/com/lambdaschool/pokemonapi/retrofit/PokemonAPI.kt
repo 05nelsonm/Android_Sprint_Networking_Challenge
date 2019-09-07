@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 interface PokemonAPI {
 
     @GET("pokemon")
-    fun getPokemonByName(@Query("name") pokemonName: String): Call<Pokemon>
+    fun getPokemonByName(@Path("name") pokemonName: String): Call<Pokemon>
 
     @GET("pokemon/{id}")
     fun getPokemonById(@Path("id") pokemonId: Int): Call<Pokemon>

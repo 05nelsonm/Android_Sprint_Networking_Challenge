@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.pokemonapi.R
 import com.lambdaschool.pokemonapi.activity.DetailActivity
 import com.lambdaschool.pokemonapi.activity.MainActivity
-import com.lambdaschool.pokemonapi.model.Pokemon
+import com.lambdaschool.pokemonapi.model.PokemonSerial
 import kotlinx.android.synthetic.main.card_view_layout.view.*
 
-class PokemonListAdapter(val data: MutableList<Pokemon>) :
+class PokemonListAdapter(val data: MutableList<PokemonSerial>) :
     RecyclerView.Adapter<PokemonListAdapter.ViewHolder>() {
 
     lateinit var context: Context

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.pokemonapi.R
 import com.lambdaschool.pokemonapi.adapter.PokemonListAdapter
 import com.lambdaschool.pokemonapi.model.Pokemon
+import com.lambdaschool.pokemonapi.model.PokemonSerial
 import com.lambdaschool.pokemonapi.retrofit.PokemonAPI
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -22,7 +23,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), Callback<Pokemon> {
 
-    private val listOfPokemon = mutableListOf<Pokemon>()
+    private val listOfPokemon = mutableListOf<PokemonSerial>()
     lateinit var pokemonServices: PokemonAPI
 
     companion object {
@@ -67,15 +68,32 @@ class MainActivity : AppCompatActivity(), Callback<Pokemon> {
 
     override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
         if (response.isSuccessful) {
-            val pokemonDetails = response.body()
-            val pokeName = pokemonDetails?.name
-            val pokeSprites = pokemonDetails?.sprites
-            val pokeId = pokemonDetails?.id
-            val pokeAbilities = pokemonDetails?.abilities
-            val pokeTypes = pokemonDetails?.types
+            val pokemonDetails = response.body() as Pokemon
+
+            val pokeName = pokemonDetails.name
+            val pokeSprites = pokemonDetails.sprites.front_default
+            val pokeId = pokemonDetails.id
+
+            val pokeAbilities = mutableListOf<String>()
+            pokemonDetails.abilities.forEach {
+                pokeAbilities.add(it.ability.name)
+            }
+
+            val pokeTypes = mutableListOf<String>()
+            pokemonDetails.types.forEach {
+                pokeTypes.add(it.type.name)
+            }
 
             val elementNumber = listOfPokemon.size
-            listOfPokemon.add(Pokemon(pokeName, pokeSprites, pokeId, pokeAbilities, pokeTypes))
+            listOfPokemon.add(
+                PokemonSerial(
+                    pokeName,
+                    pokeSprites,
+                    pokeId,
+                    pokeAbilities,
+                    pokeTypes
+                )
+            )
             list_view.adapter?.notifyDataSetChanged()
 
             val intentDetail = Intent(this, DetailActivity::class.java)
