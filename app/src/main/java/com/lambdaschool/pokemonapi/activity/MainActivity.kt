@@ -23,11 +23,11 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), Callback<Pokemon> {
 
-    private val listOfPokemon = mutableListOf<PokemonSerial>()
     lateinit var pokemonServices: PokemonAPI
 
     companion object {
         const val POKEMON_DETAILS_REQUEST_KEY = "IUH9-08UBHQPI9FGH134UT"
+        val listOfPokemon = mutableListOf<PokemonSerial>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,7 @@
 package com.lambdaschool.pokemonapi.adapter
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -42,6 +43,25 @@ class PokemonListAdapter(val data: MutableList<PokemonSerial>) :
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(MainActivity.POKEMON_DETAILS_REQUEST_KEY, data[position])
             (context as Activity).startActivity(intent)
+        }
+
+        holder.pokemonCard.setOnLongClickListener {
+            val title = "Delete Pokemon"
+            val msg = "Would you like to delete ${data[position].name} from your list?"
+
+            AlertDialog.Builder(context).setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("Yes") { dialog, which ->
+                    MainActivity.listOfPokemon.removeAt(position)
+                    notifyDataSetChanged()
+                }
+
+                .setNegativeButton("No") { _, _ -> }
+                .create()
+                .show()
+            
+            notifyDataSetChanged()
+            true
         }
     }
 }
